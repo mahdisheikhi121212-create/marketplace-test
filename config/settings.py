@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from dotenv import load_dotenv
+import dj_database_url
 import os
 from datetime import timedelta
 
@@ -91,6 +92,7 @@ ALLOWED_HOSTS = [
 # PRODUCTION SECURITY
 # =========================================================
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = not DEBUG
 
 SESSION_COOKIE_SECURE = not DEBUG
@@ -112,9 +114,9 @@ if not DEBUG:
         )
     )
 
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 
-    SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_PRELOAD = False
 
 
 # =========================================================
@@ -160,6 +162,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "corsheaders.middleware.CorsMiddleware",
 
@@ -251,14 +254,14 @@ WSGI_APPLICATION = "config.wsgi.application"
 # DATABASE
 # =========================================================
 
-# Development database: SQLite
-# PostgreSQL will be configured for production later.
-
+# Keep local SQLite unless DATABASE_URL is provided by the deployment environment.
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=False,
+    )
 }
 
 
@@ -317,6 +320,11 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+}
 
 MEDIA_URL = "media/"
 
