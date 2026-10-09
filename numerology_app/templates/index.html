@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاسبه‌گر پروفایل عددی</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%);
+            color: #1f2937;
+            direction: rtl;
+        }
+        .container {
+            max-width: 600px;
+            margin: 5% auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 2rem;
+            color: #0f172a;
+        }
+        p.subtitle {
+            margin-bottom: 1.5rem;
+            color: #475569;
+            line-height: 1.8;
+        }
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+        label {
+            font-weight: 600;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            background: #f8fafc;
+            font-size: 1rem;
+            color: #0f172a;
+        }
+        input[type="submit"] {
+            cursor: pointer;
+            padding: 0.95rem 1.5rem;
+            border: none;
+            border-radius: 14px;
+            background: #2563eb;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background 0.25s ease;
+        }
+        input[type="submit"]:hover {
+            background: #1d4ed8;
+        }
+        .result-card {
+            margin-top: 1.8rem;
+            padding: 1.5rem;
+            background: #eef2ff;
+            border-radius: 18px;
+            border: 1px solid #dbeafe;
+        }
+        .result-card h2 {
+            margin: 0 0 1rem;
+            color: #1e293b;
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+        .result-item {
+            padding: 1rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            text-align: center;
+        }
+        .result-item span.number {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2563eb;
+        }
+        .error-message {
+            padding: 1rem;
+            background: #fee2e2;
+            color: #b91c1c;
+            border-radius: 14px;
+            border: 1px solid #fecaca;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>محاسبه‌گر پروفایل عددی</h1>
+        <p class="subtitle">تاریخ تولد میلادی خود را به صورت YYYY-MM-DD وارد کنید تا عدد تولدی، خورشیدی و مسیر زندگی را محاسبه کنم.</p>
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <label for="birth_date">تاریخ تولد (میلادی)</label>
+            <input id="birth_date" name="birth_date" type="text" placeholder="1995-03-21" required>
+            <input type="submit" value="محاسبه پروفایل">
+        </form>
+
+        {% if profile %}
+            <div class="result-card">
+                <h2>نتیجه پروفایل عددی</h2>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span class="number">{{ profile.birth_number }}</span>
+                        عدد تولدی
+                    </div>
+                    <div class="result-item">
+                        <span class="number">{{ profile.solar_number }}</span>
+                        عدد خورشیدی
+                    </div>
+                    <div class="result-item">
+                        <span class="number">{{ profile.life_path_number }}</span>
+                        عدد مسیر زندگی
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

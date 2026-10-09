@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+
+# Django
+db.sqlite3
+*.log
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Static / Media
+staticfiles/
+media/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project backups
+Marketplace_BACKUP_*/
+Marketplace_BACKUP_BEFORE_FRONTEND_MERGE_*/
+
+# Database / data backups
+backup_*.json
+
+# Local / temporary files
+*.tmp
+*.bak
+*.swp
+
+# Temporary / accidental root files
+=
+code
+data.get
+
+# External location dataset repository
+locations/iran-data/
+
+# Personal project notes / documents
+*.docx
+*.txt
+!requirements.txt
+# Temporary development and test backups
+*.retry-backup
+*.stage*_backup
+*_backup
+
+# Accidental command-output files
+how --*
+sing*922b72c
+
+# Historical configuration backups
+*.before_postgresql
+*.before_postgresql_*
