@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         base_dir = Path(__file__).resolve().parents[2]
-        data_dir = base_dir / "iran-data" / "dist" / "json"
+        data_dir = base_dir / "data"
 
         provinces_file = data_dir / "provinces.json"
         cities_file = data_dir / "cities.json"
