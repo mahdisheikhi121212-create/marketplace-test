@@ -610,6 +610,8 @@ function Checkout() {
               data.detail ||
                 data.product_id?.[0] ||
                 data.quantity?.[0] ||
+                data.non_field_errors?.[0] ||
+                (Array.isArray(data) ? data[0] : null) ||
                 `افزودن محصول «${item.name}» به سبد سرور ناموفق بود.`
             );
           }
