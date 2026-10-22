@@ -16,6 +16,8 @@ db.sqlite3
 .env
 .env.*
 !.env.example
+# Public browser API endpoint only; never put credentials in this file.
+!frontend/.env.production
 
 # Static / Media
 staticfiles/
