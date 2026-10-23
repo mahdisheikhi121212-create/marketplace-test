@@ -578,6 +578,8 @@ function Checkout() {
             throw new Error(
               data.detail ||
                 data.quantity?.[0] ||
+                data.non_field_errors?.[0] ||
+                (Array.isArray(data) ? data[0] : null) ||
                 `ویرایش محصول «${item.name}» در سبد سرور ناموفق بود.`
             );
           }
